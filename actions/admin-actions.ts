@@ -357,6 +357,37 @@ export async function updateItem(...args: any[]) {
 
       if (content) post.content = content;
       if (file) post.image = await uploadImage(fd as FormData);
+
+      // Store the updated post for Supabase save
+      const updatedPost = post;
+
+      // Save to Supabase and local file
+      try {
+        // Save to local file first (fallback)
+        const fs = require("fs").promises;
+        const path = require("path");
+        const LOCAL_DB_PATH = path.join(process.cwd(), "db.json");
+
+        await fs.writeFile(LOCAL_DB_PATH, JSON.stringify(db, null, 2));
+        console.log("Database updated and saved to local file:", LOCAL_DB_PATH);
+
+        // Also save to Supabase if available
+        if (supabaseService) {
+          try {
+            const { error } = await supabaseService.from("blog").upsert([updatedPost]);
+            if (error) {
+              console.warn("Supabase blog update failed:", error);
+            } else {
+              console.log("Blog updated successfully to Supabase");
+            }
+          } catch (supabaseError) {
+            console.warn("Supabase update error:", supabaseError);
+          }
+        }
+      } catch (saveError) {
+        console.error("Failed to save database:", saveError);
+        return { error: "Gagal menyimpan perubahan" };
+      }
     } else if (type === "portfolio") {
       const item = db.portfolio.find((p) => p.id === id);
       if (!item) return { error: "Portofolio tidak ditemukan" };
@@ -399,9 +430,58 @@ export async function updateItem(...args: any[]) {
       if (raw) p.features = feats;
     }
 
-    // Save to Supabase - For now, just log success
-    // TODO: Implement proper Supabase operations
-    console.log("Data saved successfully to Supabase");
+    // Save to Supabase and local file
+    try {
+      // Save to local file first (fallback)
+      const fs = require("fs").promises;
+      const path = require("path");
+      const LOCAL_DB_PATH = path.join(process.cwd(), "db.json");
+
+      await fs.writeFile(LOCAL_DB_PATH, JSON.stringify(db, null, 2));
+      console.log("Database updated and saved to local file:", LOCAL_DB_PATH);
+
+      // Also save to Supabase if available
+      if (supabaseService) {
+        try {
+          if (type === "blog") {
+            const blogPost = db.blog.find((p) => p.id === id);
+            if (blogPost) {
+              const { error } = await supabaseService.from("blog").upsert([blogPost]);
+              if (error) {
+                console.warn("Supabase blog update failed:", error);
+              } else {
+                console.log("Blog updated successfully to Supabase");
+              }
+            }
+          } else if (type === "portfolio") {
+            const portfolioItem = db.portfolio.find((p) => p.id === id);
+            if (portfolioItem) {
+              const { error } = await supabaseService.from("portfolio").upsert([portfolioItem]);
+              if (error) {
+                console.warn("Supabase portfolio update failed:", error);
+              } else {
+                console.log("Portfolio updated successfully to Supabase");
+              }
+            }
+          } else if (type === "products") {
+            const product = db.products.find((p) => p.id === id);
+            if (product) {
+              const { error } = await supabaseService.from("products").upsert([product]);
+              if (error) {
+                console.warn("Supabase products update failed:", error);
+              } else {
+                console.log("Product updated successfully to Supabase");
+              }
+            }
+          }
+        } catch (supabaseError) {
+          console.warn("Supabase update error:", supabaseError);
+        }
+      }
+    } catch (saveError) {
+      console.error("Failed to save database:", saveError);
+      return { error: "Gagal menyimpan perubahan" };
+    }
 
     // Force revalidate all paths to ensure immediate updates
     const paths = ["/", "/admin", "/blog", "/portofolio", "/products"];
