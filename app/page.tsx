@@ -6,15 +6,14 @@ import type { Metadata } from "next";
 export const revalidate = 0; // Disable caching for this page
 
 export const metadata: Metadata = {
-  title: "Jasa Website Karawang | BangOos Web - Professional Web Development",
-  description: "Jasa pembuatan website profesional di Karawang. Spesialis website UMKM, toko online, company profile, web skripsi. SEO lokal Karawang, gratis hosting selamanya.",
-  keywords:
-    "jasa website karawang, web developer karawang, pembuatan website karawang, website umkm karawang, seo karawang, toko online karawang, company profile karawang, web skripsi karawang, jasa web murah karawang, website profesional karawang",
+  title: "Tech Solutions | MutuTech Solutions - Professional IT Services",
+  description: "Professional IT solutions and technology services. Web development, software solutions, IT consulting, and digital transformation for modern businesses.",
+  keywords: "tech solutions, IT services, web development, software solutions, IT consulting, digital transformation, professional IT services, technology solutions",
   openGraph: {
-    title: "Jasa Website Karawang | BangOos Web - Professional Web Development",
-    description: "Jasa pembuatan website profesional di Karawang. Spesialis website UMKM, toko online, company profile, web skripsi dengan SEO lokal Karawang.",
-    url: "https://bangoos.id",
-    siteName: "BangOos Web Solutions",
+    title: "Tech Solutions | MutuTech Solutions - Professional IT Services",
+    description: "Professional IT solutions and technology services. Web development, software solutions, IT consulting for modern businesses.",
+    url: "https://mututechsolutions.com",
+    siteName: "MutuTech Solutions",
     locale: "id_ID",
     type: "website",
   },

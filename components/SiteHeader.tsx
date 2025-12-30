@@ -9,8 +9,8 @@ export default function SiteHeader() {
     <header className="fixed w-full z-50 bg-[#0B1220]/80 backdrop-blur-lg py-4 border-b border-white/10">
       <div className="container mx-auto px-6 max-w-6xl flex justify-between items-center">
         <div className="text-3xl font-black tracking-tight">
-          <span className="text-white font-extrabold bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text">BangOos</span>
-          <span className="text-cyan-400 font-extrabold">Web</span>
+          <span className="text-white font-extrabold bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text">MutuTech</span>
+          <span className="text-cyan-400 font-extrabold">Solutions</span>
         </div>
 
         {/* Desktop Navigation */}

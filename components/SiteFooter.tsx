@@ -5,10 +5,10 @@ export default function SiteFooter() {
         {/* 50% - Brand & Description */}
         <div className="md:col-span-2">
           <div className="text-2xl font-bold tracking-tight mb-4">
-            <span className="text-white">BangOos</span>
-            <span className="text-cyan-400">Web</span>
+            <span className="text-white">MutuTech</span>
+            <span className="text-cyan-400">Solutions</span>
           </div>
-          <p className="text-gray-400 text-sm mb-6">Biro Jasa digital Karawang. Website cepat, SEO lokal, dan hosting selamanya untuk UMKM, Skripsi, dan Profil Kantor.</p>
+          <p className="text-gray-400 text-sm mb-6">Professional IT solutions and technology services. Web development, software solutions, IT consulting, and digital transformation for modern businesses.</p>
 
           {/* Social Media Icons */}
           <div className="flex gap-4 mb-6">
