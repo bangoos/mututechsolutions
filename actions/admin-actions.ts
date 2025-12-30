@@ -62,11 +62,25 @@ export async function loginAction(prev: unknown, fd: FormData): Promise<{ error?
   const inputUser = fd.get("username") as string | null;
   const inputPass = fd.get("password") as string | null;
 
+  // Debug logging (remove in production)
+  console.log("Login attempt:", {
+    inputUser,
+    expectedUser,
+    hasUser: !!process.env.ADMIN_USER,
+    hasPass: !!process.env.ADMIN_PASS,
+  });
+
   if (inputUser === expectedUser && inputPass === expectedPass) {
-    (await cookies()).set("admin_session", "true", { httpOnly: true, path: "/" });
+    const cookieStore = await cookies();
+    cookieStore.set("admin_session", "true", {
+      httpOnly: true,
+      path: "/",
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+    });
     redirect("/admin");
   }
-  return { error: "Login Gagal" };
+  return { error: "Login Gagal - Username atau password salah" };
 }
 
 export async function logoutAction() {
