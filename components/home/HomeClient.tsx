@@ -30,12 +30,12 @@ export default function HomeClient({ db }: { db: Database }) {
         </div>
         <div className={contentWrapper + " relative z-10 grid md:grid-cols-2 gap-8 items-center"}>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-            <span className="inline-flex items-center gap-2 text-cyan-300 font-bold tracking-widest text-xs uppercase mb-4 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20">#1 Agensi Digital di Karawang</span>
+            <span className="inline-flex items-center gap-2 text-cyan-300 font-bold tracking-widest text-xs uppercase mb-4 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20">#1 MutuTech Solutions</span>
             <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-6 text-white">
-              Solusi Digital <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Web Solutions</span>
+              MutuTech <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">IT Solutions</span>
             </h1>
-            <p className="text-gray-400 text-lg mb-8">Website super cepat, SEO lokal Karawang, dan gratis hosting selamanya. Spesialis UMKM, Skripsi, dan Profil Kantor.</p>
+            <p className="text-gray-300 text-lg mb-8">Solusi teknologi terdepan untuk transformasi digital bisnis Anda. Website super cepat, SEO optimal, dan sistem manajemen konten profesional.</p>
             <div className="flex flex-col sm:flex-row gap-4">
               <a href="https://wa.me/6281234567890" className="btn btn-primary px-8 py-4 rounded-xl font-bold shadow-lg flex items-center justify-center gap-3">
                 <Rocket size={20} /> Mulai Sekarang
@@ -232,19 +232,21 @@ export default function HomeClient({ db }: { db: Database }) {
                         <div className="w-full h-full bg-gradient-to-br from-blue-600/20 to-cyan-600/20 flex items-center justify-center">
                           <div className="text-center">
                             <div className="text-4xl mb-2">
-                              {item.category === "UMKM" && "🛒"}
-                              {item.category === "Skripsi" && "🎓"}
-                              {item.category === "Kantor" && "🏢"}
+                              {item.category === "Web Development" && "🛒"}
+                              {item.category === "Software Solutions" && "💻"}
+                              {item.category === "IT Consulting" && "👔"}
+                              {item.category === "Mobile Development" && "📱"}
+                              {item.category === "Cloud Solutions" && "☁️"}
                             </div>
-                            <div className="text-xs text-gray-400 uppercase tracking-wider">{item.category}</div>
+                            <div className="text-xs text-gray-400 uppercase tracking-wider">
+                              {item.category === "Web Development" && "🛒"}
+                              {item.category === "Software Solutions" && "💻"}
+                              {item.category === "IT Consulting" && "👔"}
+                              {item.category === "Mobile Development" && "📱"}
+                              {item.category === "Cloud Solutions" && "☁️"}
+                            </div>
                           </div>
                         </div>
-                      )}
-                      <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors" />
-                    </div>
-                    <div className="p-6">
-                      <h3 className="text-lg font-bold group-hover:text-cyan-400 transition-colors text-white">{item.title}</h3>
-                      <p className="text-gray-400 text-sm mt-2 line-clamp-2">{item.description}</p>
                     </div>
                   </button>
                 ))
