@@ -10,7 +10,7 @@ export interface PortfolioItem {
   id: string;
   title: string;
   description: string;
-  category: "UMKM" | "Skripsi" | "Kantor";
+  category: "Web Development" | "Software Solutions" | "IT Consulting" | "Mobile Development" | "Cloud Solutions";
   image: string;
   slug: string;
 }
