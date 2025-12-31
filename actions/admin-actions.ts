@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { supabase, supabaseService } from "@/lib/supabase";
-import { getDatabase } from "@/lib/vercel-blob";
+import { getDatabase, saveDatabase, deleteBlogPost, deletePortfolioItem, deleteProduct } from "@/lib/supabase-database";
 
 // Better ID generation function
 function generateId(prefix: string = ""): string {
@@ -195,7 +195,7 @@ async function saveByType(formData: FormData, type: "blog" | "portfolio" | "prod
         title,
         slug: finalSlug,
         description: formData.get("description") as string,
-        category: formData.get("category") as "UMKM" | "Skripsi" | "Kantor",
+        category: formData.get("category") as "Web Development" | "Software Solutions" | "IT Consulting" | "Mobile Development" | "Cloud Solutions",
         image: url,
       });
     } else if (type === "products") {
@@ -212,38 +212,12 @@ async function saveByType(formData: FormData, type: "blog" | "portfolio" | "prod
       });
     }
 
-    // Save to local file for now (fallback until Supabase tables are created)
+    // Save using supabase-database (includes Supabase + local backup)
     try {
-      const fs = require("fs").promises;
-      const path = require("path");
-      const LOCAL_DB_PATH = path.join(process.cwd(), "db.json");
-
-      // Write to local file
-      await fs.writeFile(LOCAL_DB_PATH, JSON.stringify(db, null, 2));
-      console.log("Data saved to local file:", LOCAL_DB_PATH);
-
-      // If Supabase is available, also try to save there
-      if (supabase) {
-        try {
-          if (type === "blog" && db.blog.length > 0) {
-            const newBlog = db.blog[db.blog.length - 1];
-            const { error } = await supabase.from("blog").insert([newBlog]);
-            if (error) console.warn("Supabase save failed:", error);
-          } else if (type === "portfolio" && db.portfolio.length > 0) {
-            const newPortfolio = db.portfolio[db.portfolio.length - 1];
-            const { error } = await supabase.from("portfolio").insert([newPortfolio]);
-            if (error) console.warn("Supabase save failed:", error);
-          } else if (type === "products" && db.products.length > 0) {
-            const newProduct = db.products[db.products.length - 1];
-            const { error } = await supabase.from("products").insert([newProduct]);
-            if (error) console.warn("Supabase save failed:", error);
-          }
-        } catch (supabaseError) {
-          console.warn("Supabase save error:", supabaseError);
-        }
-      }
+      await saveDatabase(db);
+      console.log("Data saved using supabase-database functions");
     } catch (saveError) {
-      console.error("Failed to save data:", saveError);
+      console.error("Failed to save database:", saveError);
       return { error: "Gagal menyimpan data" };
     }
 
@@ -254,7 +228,18 @@ async function saveByType(formData: FormData, type: "blog" | "portfolio" | "prod
     }
 
     console.log("Database saved and revalidated paths:", paths);
-    return { message: "Data Disimpan" };
+
+    // Add specific success message based on type
+    let successMessage = "Data Disimpan";
+    if (type === "blog") {
+      successMessage = "✅ Blog post berhasil disimpan!";
+    } else if (type === "portfolio") {
+      successMessage = "✅ Portfolio item berhasil disimpan!";
+    } else if (type === "products") {
+      successMessage = "✅ Produk berhasil disimpan!";
+    }
+
+    return { message: successMessage };
   } catch (e) {
     console.error(e);
     return { error: "Gagal menyimpan" };
@@ -283,30 +268,16 @@ export async function deleteItem(...args: any[]) {
     else if (type === "portfolio") db.portfolio = db.portfolio.filter((i) => i.id !== id);
     else if (type === "products") db.products = db.products.filter((i) => i.id !== id);
 
-    // Save updated database to local file
-    try {
-      const fs = require("fs").promises;
-      const path = require("path");
-      const LOCAL_DB_PATH = path.join(process.cwd(), "db.json");
-
-      // Write updated database to local file
-      await fs.writeFile(LOCAL_DB_PATH, JSON.stringify(db, null, 2));
-      console.log("Database updated (deleted) and saved to:", LOCAL_DB_PATH);
-
-      // Also try to delete from Supabase if available
-      if (supabase) {
-        try {
-          const { error } = await supabase.from(type).delete().eq("id", id);
-          if (error) console.warn("Supabase delete failed:", error);
-          else console.log("Item deleted from Supabase successfully");
-        } catch (supabaseError) {
-          console.warn("Supabase delete error:", supabaseError);
-        }
-      }
-    } catch (saveError) {
-      console.error("Failed to save database after deletion:", saveError);
-      return { error: "Gagal menyimpan perubahan" };
+    // Use supabase-database delete functions
+    if (type === "blog") {
+      await deleteBlogPost(id);
+    } else if (type === "portfolio") {
+      await deletePortfolioItem(id);
+    } else if (type === "products") {
+      await deleteProduct(id);
     }
+
+    console.log(`Item deleted from Supabase: ${type}/${id}`);
 
     // Force revalidate all paths to ensure immediate updates
     const paths = ["/", "/admin", "/blog", "/portofolio", "/products"];
@@ -315,7 +286,18 @@ export async function deleteItem(...args: any[]) {
     }
 
     console.log("Database updated (deleted) and revalidated paths:", paths);
-    return { message: "Data dihapus" };
+
+    // Add specific success message based on type
+    let successMessage = "Data dihapus";
+    if (type === "blog") {
+      successMessage = "✅ Blog post berhasil dihapus!";
+    } else if (type === "portfolio") {
+      successMessage = "✅ Portfolio item berhasil dihapus!";
+    } else if (type === "products") {
+      successMessage = "✅ Produk berhasil dihapus!";
+    }
+
+    return { message: successMessage };
   } catch (e) {
     console.error("Gagal menghapus item", e);
     return { error: "Gagal menghapus data" };
@@ -411,7 +393,7 @@ export async function updateItem(...args: any[]) {
       }
 
       if (description) item.description = description;
-      if (category) item.category = category;
+      if (category) item.category = category as "Web Development" | "Software Solutions" | "IT Consulting" | "Mobile Development" | "Cloud Solutions";
       if (file) item.image = await uploadImage(fd as FormData);
     } else if (type === "products") {
       const p = db.products.find((p) => p.id === id);
