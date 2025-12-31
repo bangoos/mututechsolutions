@@ -25,15 +25,15 @@ export default function HomeClient({ db }: { db: Database }) {
     <PageLayout>
       <section id="beranda" className="relative min-h-[60vh] flex items-center">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <motion.div animate={{ y: [0, -50, 0], opacity: [0.18, 0.45, 0.18] }} transition={{ duration: 7, repeat: Infinity }} className="absolute top-20 left-10 w-72 h-72 bg-cyan-500 rounded-full blur-3xl mix-blend-screen" />
-          <motion.div animate={{ y: [0, 50, 0], opacity: [0.18, 0.45, 0.18] }} transition={{ duration: 8, repeat: Infinity }} className="absolute top-40 right-10 w-96 h-96 bg-blue-200 rounded-full blur-3xl mix-blend-screen" />
+          <motion.div animate={{ y: [0, -50, 0], opacity: [0.18, 0.45, 0.18] }} transition={{ duration: 7, repeat: Infinity }} className="absolute top-20 left-10 w-72 h-72 bg-blue-500 rounded-full blur-3xl mix-blend-screen" />
+          <motion.div animate={{ y: [0, 50, 0], opacity: [0.18, 0.45, 0.18] }} transition={{ duration: 8, repeat: Infinity }} className="absolute top-40 right-10 w-96 h-96 bg-red-200 rounded-full blur-3xl mix-blend-screen" />
         </div>
         <div className={contentWrapper + " relative z-10 grid md:grid-cols-2 gap-8 items-center"}>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-            <span className="inline-flex items-center gap-2 text-cyan-300 font-bold tracking-widest text-xs uppercase mb-4 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20">#1 MutuTech Solutions</span>
+            <span className="inline-flex items-center gap-2 text-blue-400 font-bold tracking-widest text-xs uppercase mb-4 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20">#1 MutuTech Solutions</span>
             <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-6 text-white">
               MutuTech <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">IT Solutions</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-red-600">IT Solutions</span>
             </h1>
             <p className="text-gray-300 text-lg mb-8">Solusi teknologi terdepan untuk transformasi digital bisnis Anda. Website super cepat, SEO optimal, dan sistem manajemen konten profesional.</p>
             <div className="flex flex-col sm:flex-row gap-4">
@@ -45,21 +45,21 @@ export default function HomeClient({ db }: { db: Database }) {
               </a>
             </div>
             <div className="flex items-center gap-6 mt-6 text-sm">
-              <div className="flex items-center gap-2 text-cyan-400">
-                <span className="w-2 h-2 rounded-full bg-cyan-400" /> Gratis Hosting
+              <div className="flex items-center gap-2 text-blue-400">
+                <span className="w-2 h-2 rounded-full bg-blue-400" /> Gratis Hosting
               </div>
-              <div className="flex items-center gap-2 text-cyan-400">
-                <span className="w-2 h-2 rounded-full bg-cyan-400" /> Garansi SEO
+              <div className="flex items-center gap-2 text-blue-400">
+                <span className="w-2 h-2 rounded-full bg-blue-400" /> Garansi SEO
               </div>
             </div>
           </motion.div>
           <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1, delay: 0.5 }} className="hidden md:block relative">
             <div className="relative w-full h-full flex items-center justify-center">
-              <div className="bg-gradient-to-br from-blue-600/20 to-cyan-600/20 backdrop-blur-xl border border-cyan-500/30 rounded-2xl p-8 shadow-2xl shadow-cyan-500/10">
+              <div className="bg-gradient-to-br from-blue-600/20 to-red-600/20 backdrop-blur-xl border border-blue-500/30 rounded-2xl p-8 shadow-2xl shadow-blue-500/10">
                 <div className="text-center">
                   <div className="text-6xl mb-4">🚀</div>
                   <h3 className="text-xl font-bold text-white mb-2">Siap Launch!</h3>
-                  <p className="text-cyan-300 text-sm">Website profesional Anda siap dalam 24 jam</p>
+                  <p className="text-blue-300 text-sm">Website profesional Anda siap dalam 24 jam</p>
                   <div className="flex justify-center gap-2 mt-4">
                     <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
                     <div className="w-2 h-2 rounded-full bg-yellow-400 animate-pulse" style={{ animationDelay: "0.5s" }}></div>

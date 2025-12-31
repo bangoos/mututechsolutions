@@ -1,13 +1,19 @@
 @import "tailwindcss";
 :root {
-  --background: #0B1220;
-  --foreground: #e6edf5;
-  --cloud-bg: #0F1628;
-  --cloud-foreground: #e2e8f0;
-  --accent: #2563eb;
-  --accent-2: #06b6d4;
-  --accent-shadow: rgba(37, 99, 235, 0.35);
+  --background: #0f172a;
+  --foreground: #e2e8f0;
+  --cloud-bg: #1e293b;
+  --cloud-foreground: #cbd5e1;
+  --accent: #1e40af;
+  /* Biru Nasdem */
+  --accent-2: #dc2626;
+  /* Merah PDI */
+  --accent-shadow: rgba(30, 64, 175, 0.35);
   --muted: #94a3b8;
+  --silver: #c0c0c0;
+  /* Silver */
+  --silver-light: #e5e5e5;
+  --silver-dark: #808080;
 }
 
 /* theme helper for Tailwind-inlined tokens */
@@ -23,28 +29,40 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0B1220;
-    --foreground: #e6edf5;
-    --cloud-bg: #0F1628;
-    --cloud-foreground: #e2e8f0;
-    --accent: #2563eb;
-    --accent-2: #06b6d4;
-    --accent-shadow: rgba(37, 99, 235, 0.35);
+    --background: #0f172a;
+    --foreground: #e2e8f0;
+    --cloud-bg: #1e293b;
+    --cloud-foreground: #cbd5e1;
+    --accent: #1e40af;
+    /* Biru Nasdem */
+    --accent-2: #dc2626;
+    /* Merah PDI */
+    --accent-shadow: rgba(30, 64, 175, 0.35);
     --muted: #94a3b8;
+    --silver: #c0c0c0;
+    /* Silver */
+    --silver-light: #e5e5e5;
+    --silver-dark: #808080;
   }
 }
 
 /* Manual dark class (set by theme toggle) */
 
 .dark {
-  --background: #0B1220;
-  --foreground: #e6edf5;
-  --cloud-bg: #0F1628;
-  --cloud-foreground: #e2e8f0;
-  --accent: #2563eb;
-  --accent-2: #06b6d4;
-  --accent-shadow: rgba(37, 99, 235, 0.35);
+  --background: #0f172a;
+  --foreground: #e2e8f0;
+  --cloud-bg: #1e293b;
+  --cloud-foreground: #cbd5e1;
+  --accent: #1e40af;
+  /* Biru Nasdem */
+  --accent-2: #dc2626;
+  /* Merah PDI */
+  --accent-shadow: rgba(30, 64, 175, 0.35);
   --muted: #94a3b8;
+  --silver: #c0c0c0;
+  /* Silver */
+  --silver-light: #e5e5e5;
+  --silver-dark: #808080;
 }
 
 /* Cloud panel utility */
